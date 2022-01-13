@@ -36,6 +36,9 @@ setpointy = float(0)
 # Main Loop
 while True:    
     positionx, positiony = bbt.get_position()
+    
+    print(positionx, positiony) # for debug purposes
+    
     positionx = 1000 if positionx > 1000 else positionx
     positiony = 1000 if positiony > 1000 else positiony
 
