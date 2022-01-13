@@ -4,7 +4,7 @@ import time
 bbt = remotelab.BBT()
 
 # Initializations
-err_prev = 0
+err_prev = (0, 0)
 error_sum = 0
 interval = 0.004 # Control period in seconds
 error_sum_x = 0
