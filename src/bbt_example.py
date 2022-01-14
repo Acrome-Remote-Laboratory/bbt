@@ -13,6 +13,8 @@ _filter_size = 10
 bbt_iter = 0
 x_mov_avg_filter = [0 for i in range(_filter_size)]
 y_mov_avg_filter = [0 for i in range(_filter_size)]
+outputx = 0
+outputy = 0
 
 #Control Parameters
 feedforwardx = 725
