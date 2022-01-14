@@ -10,7 +10,7 @@ interval = 0.004 # Control period in seconds
 error_sum_x = 0
 error_sum_y = 0
 _filter_size = 10
-#bbt_iter = 0
+bbt_iter = 0
 x_mov_avg_filter = [0 for i in range(_filter_size)]
 y_mov_avg_filter = [0 for i in range(_filter_size)]
 
