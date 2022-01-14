@@ -68,7 +68,7 @@ while True:
     y_mov_avg_filter[bbt_iter] = (error[1] - err_prev[1]) * kdy / interval
     dy = sum(y_mov_avg_filter[0:_filter_size])/_filter_size
 
-    #bbt_iter = (bbt_iter + 1) % _filter_size
+    bbt_iter = (bbt_iter + 1) % _filter_size
     
     if abs(error_sum_x)>10:
         outputx = feedforwardx + px + ix + dx
