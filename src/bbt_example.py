@@ -23,39 +23,36 @@ windup_abs = 30
 calibration_x = (0,-50)
 calibration_y = (0,-8)
 
-kpx = float(0.45)
-kix = float(0.001)
-kdx = float(0.2)
+kpx = 0.45
+kix = 0.001
+kdx = 0.2
 
-kpy = float(0.45)
-kiy = float(0.001)
-kdy = float(0.2)
+kpy = 0.45
+kiy = 0.001
+kdy = 0.2
 
 #Setpoint for the ball. You may change between -/+ 100 [mm] both in X and Y.
-setpointx = float(0)
-setpointy = float(0)
+setpointx = 0
+setpointy = 0
+setpointx = (setpointx + 50) * 3 + 250 #scaleX
+setpointy = (setpointy + 60) * 3 + 250 #scaleY
 
 # Main Loop
 while True:    
     positionx, positiony = bbt.get_position()
     
-    print(positionx, positiony) # for debug purposes
-    
     positionx = 1000 if positionx > 1000 else positionx
     positiony = 1000 if positiony > 1000 else positiony
 
-    #positionx += -100
-    #positiony += 0
-
-    #setpointx = (setpointx + 50) * 3 + 250
-    #setpointy = (setpointy + 60) * 3 + 250
+    positionx += -100
+    positiony += 0
 
     error = ((setpointx - positionx), (setpointy - positiony))
     error_sum_x += error[0]
     error_sum_y += error[1]
 
     #PID for X axis
-    px =  error_sum_x * kpx
+    px =  error[0] * kpx
     ix = error_sum_x * kix
     ix = ix if -windup_abs <= ix <= windup_abs else (ix/abs(ix))*windup_abs
 
@@ -63,7 +60,7 @@ while True:
     dx = sum(x_mov_avg_filter[0:_filter_size])/_filter_size
 
     #PID for Y axis
-    py =  error_sum_y * kpy
+    py =  error[1] * kpy
     iy = error_sum_y * kiy
     iy = iy if -windup_abs <= iy <= windup_abs else (iy/abs(iy))*windup_abs
 
@@ -90,9 +87,11 @@ while True:
     outputy = 1000 if outputy >= 1000 else outputy
 
     ####
-    #positionx = (positionx - 250) / 3 - 50
-    #positiony = (positiony - 250) / 3 - 60
+    positionx = (positionx - 250) / 3 - 50
+    positiony = (positiony - 250) / 3 - 60
+    print(positionx, positiony) # for debug purposes
+
     bbt.set_servo(int(outputx), int(outputy))
     
-    #err_prev = error
+    err_prev = error
     time.sleep(interval)
